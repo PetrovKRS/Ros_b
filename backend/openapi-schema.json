@@ -1,0 +1,372 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /api/v1/teams/{team_slug}/employees/:
+    get:
+      operationId: listEmployees
+      description: ''
+      parameters:
+      - name: team_slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createEmployee
+      description: ''
+      parameters:
+      - name: team_slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Employee'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+          description: ''
+      tags:
+      - api
+  /api/v1/teams/{team_slug}/employees/{id}/:
+    get:
+      operationId: retrieveEmployee
+      description: ''
+      parameters:
+      - name: team_slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateEmployee
+      description: ''
+      parameters:
+      - name: team_slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Employee'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateEmployee
+      description: ''
+      parameters:
+      - name: team_slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Employee'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyEmployee
+      description: ''
+      parameters:
+      - name: team_slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/v1/teams/{team_slug}/count_employees/:
+    post:
+      operationId: createTeamCountEmployeeViewSet
+      description: ''
+      parameters:
+      - name: team_slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+  /api/v1/metrics/{metric_type}/:
+    post:
+      operationId: createMetricViewSet
+      description: ''
+      parameters:
+      - name: metric_type
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+  /api/v1/teams/{team_slug}/{metric_type}/:
+    post:
+      operationId: createTeamMetricViewSet
+      description: ''
+      parameters:
+      - name: team_slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: metric_type
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+  /api/v1/teams/{team_slug}/individual-competencies/:
+    post:
+      operationId: createTeamIndividualCompetenciesViewSet
+      description: ''
+      parameters:
+      - name: team_slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+  /api/v1/teams/{team_slug}/competencies/level/:
+    post:
+      operationId: createCompetencyLevelViewSet
+      description: "ViewSet \u0434\u043B\u044F \u043F\u043E\u043B\u0443\u0447\u0435\
+        \u043D\u0438\u044F \u0443\u0440\u043E\u0432\u043D\u044F \u043A\u043E\u043C\
+        \u043F\u0435\u0442\u0435\u043D\u0446\u0438\u0439 \u0441\u043E\u0442\u0440\u0443\
+        \u0434\u043D\u0438\u043A\u043E\u0432."
+      parameters:
+      - name: team_slug
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+components:
+  schemas:
+    Employee:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        position:
+          type: string
+          nullable: true
+        worker:
+          type: string
+          readOnly: true
+        grade:
+          type: string
+        key_people:
+          type: string
+          readOnly: true
+        bus_factor:
+          type: string
+          readOnly: true
+        education:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                readOnly: true
+              training_name:
+                type: string
+            required:
+            - training_name
+        assesmentOfPotention:
+          type: object
+          properties:
+            assesmentLevel:
+              type: string
+            involvmentLevel:
+              type: string
+          required:
+          - assesmentLevel
+          - involvmentLevel
+        skill:
+          type: string
+          readOnly: true
+      required:
+      - position
+      - grade
+      - education
+      - assesmentOfPotention

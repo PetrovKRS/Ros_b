@@ -33,7 +33,16 @@ else:
     DEBUG = False
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1').split(',')
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://127.0.0.1').split(',')
 
+# Разрешение всех источников (не рекомендуется для продакшн)
+CORS_ALLOW_ALL_ORIGINS = True
+
+# Разрешение определенного источника
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # ваш фронтенд-URL
+    "https://rosb-hakaton.ddns.net",  # основной домен
+]
 
 # Application definition
 
@@ -46,15 +55,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
     'rest_framework',
+    'django_filters',
+    'drf_yasg',
+    'corsheaders',
     'djoser',
-    # 'users.apps.UsersConfig',
+    'users.apps.UsersConfig',
     'api.apps.ApiConfig',
     'core.apps.CoreConfig',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -86,24 +100,25 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+DB_TYPE = os.getenv('DB_TYPE', 'Not_DB')
+if DB_TYPE == 'postgres':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('POSTGRES_DB'),
+            'USER': os.getenv('POSTGRES_USER'),
+            'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
+            'PORT': os.getenv('DB_PORT')
+        }
     }
-}
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv('POSTGRES_DB', 'django'),
-#         'USER': os.getenv('POSTGRES_USER', 'django'),
-#         'PASSWORD': os.getenv('POSTGRES_PASSWORD', ''),
-#         'HOST': os.getenv('DB_HOST', ''),
-#         'PORT': os.getenv('DB_PORT', 5432)
-#     }
-# }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -140,7 +155,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -156,6 +172,9 @@ REST_FRAMEWORK = {
     # 'PAGE_SIZE': 6,
 }
 
+
+
+
 # DJOSER = {
 #     'HIDE_USERS': False,
 #     'LOGIN_FIELD': 'email',
@@ -170,6 +189,6 @@ REST_FRAMEWORK = {
 #     },
 # }
 
-AUTH_USER_MODEL = 'core.Employee'
+AUTH_USER_MODEL = 'users.ManagerTeam'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

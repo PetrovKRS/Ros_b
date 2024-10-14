@@ -10,23 +10,26 @@ from .models import (
     TeamPosition, Competency, EmployeeCompetency,
     Skill, EmployeeSkill, SkillForCompetency, ExpectedSkill,
     EmployeeExpectedSkill, CompetencyForExpectedSkill,
+    AssesmentSkill, EmployeeAssesmentSkill,
 )
 
+#
+# @admin.register(Employee)
+# class EmployeeAdmin(admin.ModelAdmin):
+#     pass
+#     list_display = (
+#         'pk', 'first_name', 'last_name', 'email', 'status',
+#         'registration_date', 'last_login_date',
+#     )
 
-@admin.register(Employee)
-class EmployeeAdmin(admin.ModelAdmin):
+@admin.register(AssesmentSkill)
+class AssesmentSkillAdmin(admin.ModelAdmin):
     pass
-    list_display = (
-        'pk', 'first_name', 'last_name', 'email', 'status',
-        'registration_date', 'last_login_date',
-    )
-    # search_fields = (
-    #     'username', 'email', 'first_name', 'last_name'
-    # )
-    # list_filter = (
-    #     'username', 'email'
-    # )
-    # empty_value_display = '- пусто -'
+
+
+@admin.register(EmployeeAssesmentSkill)
+class EmployeeAssesmentSkillAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(DevelopmentPlan)
@@ -34,51 +37,62 @@ class DevelopmentPlanAdmin(admin.ModelAdmin):
     list_display = (
         'pk', 'plan_name', 'employee_count',
     )
+    readonly_fields = (
+        'employee_count',
+    )
+    
 
-
-@admin.register(EmployeeDevelopmentPlan)
-class EmployeeDevelopmentPlanAdmin(admin.ModelAdmin):
-    pass
+# @admin.register(EmployeeDevelopmentPlan)
+# class EmployeeDevelopmentPlanAdmin(admin.ModelAdmin):
+#     list_display = (
+#         'employee', 'development_plan', 'performance_score',
+#         'add_date',
+#     )
+#     fields = (
+#         'employee', 'development_plan', 'performance_score',
+#     )
 
 
 @admin.register(Engagement)
 class EngagementAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = (
+        'employee_count',
+    )
 
 
-@admin.register(EmployeeEngagement)
-class EmployeeEngagementAdmin(admin.ModelAdmin):
-    pass
+# @admin.register(EmployeeEngagement)
+# class EmployeeEngagementAdmin(admin.ModelAdmin):
+#     list_display = (
+#         'employee', 'engagement', 'performance_score', 'add_date',
+#     )
 
 
 @admin.register(KeyPeople)
 class KeyPeopleAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = (
+        'employee_count', 
+    )
 
 
-@admin.register(EmployeeKeyPeople)
-class EmployeeKeyPeopleAdmin(admin.ModelAdmin):
-    pass
+# @admin.register(EmployeeKeyPeople)
+# class EmployeeKeyPeopleAdmin(admin.ModelAdmin):
+#     list_display = (
+#         'add_date',
+#     )
 
 
 @admin.register(TrainingApplication)
 class TrainingApplicationAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(EmployeeTrainingApplication)
-class EmployeeTrainingApplicationAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = (
+        'employee_count',
+    )
 
 
 @admin.register(BusFactor)
 class BusFactorAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(EmployeeBusFactor)
-class EmployeeBusFactorAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = (
+        'employee_count',
+    )
 
 
 @admin.register(Grade)
@@ -86,19 +100,11 @@ class GradeAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(EmployeeGrade)
-class EmployeeGradeAdmin(admin.ModelAdmin):
-    pass
-
-
 @admin.register(KeySkill)
 class KeySkillAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(EmployeeKeySkill)
-class EmployeeKeySkillAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = (
+        'employee_count',
+    )
 
 
 @admin.register(Team)
@@ -108,64 +114,29 @@ class TeamAdmin(admin.ModelAdmin):
 
 @admin.register(EmployeeTeam)
 class EmployeeTeamAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('manager', 'team', 'get_employees')
+
+    def get_employees(self, obj):
+        return ", ".join([employee.__str__() for employee in obj.employee.all()])
+    get_employees.short_description = 'Сотрудники'
 
 
 @admin.register(Position)
 class PositionAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(EmployeePosition)
-class EmployeePositionAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(PositionCompetency)
-class PositionCompetencyAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(TeamPosition)
-class TeamPositionAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = (
+        'grade_count',
+    )
 
 
 @admin.register(Competency)
 class CompetencyAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(EmployeeCompetency)
-class EmployeeCompetencyAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = (
+        'employee_count',
+    )
 
 
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(EmployeeSkill)
-class EmployeeSkillAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(SkillForCompetency)
-class SkillForCompetencyAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(ExpectedSkill)
-class ExpectedSkillAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(EmployeeExpectedSkill)
-class EmployeeExpectedSkillAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(CompetencyForExpectedSkill)
-class CompetencyForExpectedSkillAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = (
+        'employee_count',
+    )
